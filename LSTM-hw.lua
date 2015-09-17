@@ -115,6 +115,51 @@ function showTimeT(t)
    end
 end
 
+function printfile(node,fname)
+   local model = LSTM_module
+   file = io.open(fname .. ".txt","w")
+   file2 = io.open(fname .. "Bias.txt","w")
+   for a, b in ipairs(model.forwardnodes) do
+      if b.id == node then
+        --file:write("Node" .. node .. ": " .. tostring(b.data.module) .."\n")
+        --file:write("Weight\n")
+        for _, data in ipairs(b.data.module.weight:storage():totable()) do
+           file:write(tostring(math.floor(data * 256)) .. ',')
+        end
+        --file:write("\nBias\n")
+        for _, data in ipairs(b.data.module.bias:totable()) do
+           file2:write(tostring(math.floor(data * 256)) .. ',')
+        end
+        break
+      end
+   end
+   file:close()
+   file2:close()
+end
+
+function printinput(t)
+   file = io.open("input.txt","w")
+   for _, data in ipairs(inTable[t][3]:totable()) do
+        file:write(tostring(math.floor(data * 256)) .. ',')
+   end
+   file:close()
+   file1 = io.open("c_tt.txt","w")
+   for _, data in ipairs(inTable[t][1]:totable()) do
+        file1:write(tostring(math.floor(data * 256)) .. ',')
+   end
+   file1:close()
+   file2 = io.open("h_tt.txt","w")
+   for _, data in ipairs(inTable[t][2]:totable()) do
+        file2:write(tostring(math.floor(data * 256)) .. ',')
+   end
+   file2:close()
+   file3 = io.open("output.txt","w")
+   file3:write("H_o\n" .. tostring(torch.floor(outTable[t][1]*256)))
+   file3:write("C_o\n" .. tostring(torch.floor(outTable[t][2]*256)))
+   file3:close()
+end
+
+
 print [[
 
 If `20` is a `nn.Linear()` node, then print its weight with
@@ -122,4 +167,10 @@ If `20` is a `nn.Linear()` node, then print its weight with
 
 Print all inputs and outputs at time 0 with
    showTimeT(1)
+
+printinput will write inputs and outputs at t in a text file
+   printinput(1)
+printfile will write a node parameters in a text file.
+The bias of the node will be in a different file name.
+   printfile(20,"Wf")
 ]]
