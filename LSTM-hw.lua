@@ -93,3 +93,33 @@ function getParameters(node)
       end
    end
 end
+
+function showTimeT(t)
+   if t > T then
+      print(c.red('t > T = ' .. T))
+   else
+      print(c.green('Time t = ' .. t))
+      print(c.magenta('Inputs'))
+      print(c.blue('c['..tostring(t-1)..']:'))
+      print(inTable[t][1])
+      print(c.blue('h['..tostring(t-1)..']:'))
+      print(inTable[t][2])
+      print(c.blue('x['..t..']:'))
+      print(inTable[t][3])
+
+      print(c.magenta('Outputs'))
+      print(c.blue('c['..t..']:'))
+      print(outTable[t][1])
+      print(c.blue('h['..t..']:'))
+      print(outTable[t][2])
+   end
+end
+
+print [[
+
+If `20` is a `nn.Linear()` node, then print its weight with
+   getParameters(20)
+
+Print all inputs and outputs at time 0 with
+   showTimeT(1)
+]]

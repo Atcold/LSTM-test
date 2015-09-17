@@ -13,8 +13,9 @@ myNode = 20
 getParameters(myNode)
 ```
 
-To print the output of the `LSTM_module`:
+To print the intput and output of the `LSTM_module` at time `t`:
 
 ```lua
-print(outTable)
+t = 1
+showTime(t)
 ```
