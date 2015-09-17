@@ -10,7 +10,7 @@ To output the weight of a `nn.Linear()` layer: check on the SVG which node you w
 
 ```lua
 myNode = 20
-getParameters(LSTM_module, myNode)
+getParameters(myNode)
 ```
 
 To print the output of the `LSTM_module`:

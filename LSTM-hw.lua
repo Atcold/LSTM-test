@@ -79,8 +79,9 @@ LSTM_module = nn.gModule({c_tt, h_tt, x_t}, {c_t, h_t})
 --end)
 graph.dot(LSTM_module.fg, 'LSTM', 'LSTM')
 
--- Call as getParameters(LSTM_module, 20) if 20 is still a Linear
-function getParameters(model, node)
+-- Call as getParameters(20) if 20 is still a Linear
+function getParameters(node)
+   local model = LSTM_module
    for a, b in ipairs(model.forwardnodes) do
       if b.id == node then
          print(c.green('Node ' .. node .. ': ' .. tostring(b.data.module)))
