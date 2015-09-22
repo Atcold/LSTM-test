@@ -58,7 +58,6 @@ c_t:annotate{graphAttributes = {color = 'green', fontcolor = 'green'}}
 local o_t = nn.Sigmoid()(nn.CAddTable()({
    nn.Linear(n_x, n_o)(x_t),
    nn.Linear(n_h, n_o)(h_tt),
-   nn.Linear(n_c, n_o)(c_t)
 }))
 o_t:annotate{graphAttributes = {color = 'blue', fontcolor = 'blue'}}
 
