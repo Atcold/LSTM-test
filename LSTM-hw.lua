@@ -67,13 +67,22 @@ h_t:annotate{graphAttributes = {color = 'green', fontcolor = 'green'}}
 nngraph.annotateNodes()
 LSTM_module = nn.gModule({c_tt, h_tt, x_t}, {c_t, h_t})
 
+-- Table cloning
+function clone(tab)
+   local newTab = {}
+   for _, el in ipairs(tab) do
+      table.insert(newTab, el:clone())
+   end
+   return newTab
+end
+
 --pcall(function()
    inTable = {}
    outTable = {}
    outTable[0] = {torch.zeros(n_c), torch.zeros(n_h)}
    for i = 1, #xv do
       table.insert(inTable, {outTable[i-1][1], outTable[i-1][2], xv[i]})
-      table.insert(outTable, LSTM_module:forward(inTable[i]))
+      table.insert(outTable, clone(LSTM_module:forward(inTable[i])))
    end
 --end)
 graph.dot(LSTM_module.fg, 'LSTM', 'LSTM')
